@@ -12,10 +12,12 @@
     "@radix-ui/react-popover": "^0.1.1",
     "@solana/web3.js": "^1.30.2",
     "@stitches/react": "^1.2.5",
+    "buffer": "^6.0.3",
     "react": "^17.0.0",
     "react-dom": "^17.0.0"
   },
   "devDependencies": {
+    "@rollup/plugin-inject": "^4.0.3",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@vitejs/plugin-react": "^1.0.0",

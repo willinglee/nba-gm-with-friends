@@ -1,6 +1,6 @@
 import { createStitches, createTheme } from "@stitches/react";
 
-export const { styled, globalCss, theme } = createStitches({
+export const { styled, globalCss, theme, keyframes } = createStitches({
   theme: {
     fonts: {
       default: "BlinkMacSystemFont",
@@ -13,6 +13,7 @@ export const { styled, globalCss, theme } = createStitches({
     colors: {
       hiContrast: "black",
       loContrast: "white",
+      primary: "#5a4fff",
     },
   },
 });

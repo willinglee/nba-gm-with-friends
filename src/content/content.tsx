@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
-import { Program, Provider, web3 } from "@project-serum/anchor";
+import { web3 } from "@project-serum/anchor";
 
 import { styled } from "../stitches.config";
 import Button from "../button/button";
+import Spinner from "../spinner/spinner";
 import Connected from "../connected/connected";
 
 const Wrapper = styled("div", {
@@ -14,14 +14,14 @@ const Wrapper = styled("div", {
   paddingTop: "64px",
 });
 
-const { SystemProgram, Keypair } = web3;
-
 export default function Content() {
   const [walletAddress, setWalletAddress] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const isWalletConnected = async () => {
       try {
+        setLoading(true);
         const { solana } = window;
 
         if (solana?.isPhantom) {
@@ -34,7 +34,9 @@ export default function Content() {
         } else {
           alert("Solana object not found! Get a Phantom Wallet 👻");
         }
+        setLoading(false);
       } catch (err) {
+        setLoading(false);
         console.error(err);
       }
     };
@@ -52,7 +54,7 @@ export default function Content() {
 
   return (
     <Wrapper>
-      {!walletAddress && (
+      {!walletAddress && !loading && (
         <Button fontSize="md" onClick={connectWallet}>
           Connect Wallet
         </Button>
