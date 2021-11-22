@@ -6,6 +6,7 @@ import { getBaseAccount, getProgram } from "../config/program";
 import Button from "../button/button";
 import Spinner from "../spinner/spinner";
 import Players from "../players/players";
+import Draft from "../draft/draft";
 
 export default function Connected() {
   const [players, setPlayers] = useState([]);
@@ -69,7 +70,10 @@ export default function Connected() {
           Create GM Account
         </Button>
       )}
-      {players.length > 0 && <Players />}
+      {players.length < 5 && account.hasAccount && (
+        <Draft setPlayers={setPlayers} players={players} />
+      )}
+      {players.length === 5 && <Players />}
     </div>
   );
 }

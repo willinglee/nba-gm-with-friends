@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { web3 } from "@project-serum/anchor";
 
 import { styled } from "../stitches.config";
 import Button from "../button/button";
-import Spinner from "../spinner/spinner";
 import Connected from "../connected/connected";
 
 const Wrapper = styled("div", {
@@ -11,7 +9,7 @@ const Wrapper = styled("div", {
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  paddingTop: "64px",
+  paddingTop: "96px",
 });
 
 export default function Content() {

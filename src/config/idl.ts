@@ -24,6 +24,22 @@ export type NbaGmWithFriendsPrograms = {
         }
       ];
       args: [];
+    },
+    {
+      name: "addPlayer";
+      accounts: [
+        {
+          name: "baseAccount";
+          isMut: true;
+          isSigner: false;
+        }
+      ];
+      args: [
+        {
+          name: "name";
+          type: "string";
+        }
+      ];
     }
   ];
   accounts: [
@@ -35,6 +51,32 @@ export type NbaGmWithFriendsPrograms = {
           {
             name: "totalPlayers";
             type: "u64";
+          },
+          {
+            name: "playerList";
+            type: {
+              vec: {
+                defined: "ItemStruct";
+              };
+            };
+          }
+        ];
+      };
+    }
+  ];
+  types: [
+    {
+      name: "ItemStruct";
+      type: {
+        kind: "struct";
+        fields: [
+          {
+            name: "name";
+            type: "string";
+          },
+          {
+            name: "userAddress";
+            type: "publicKey";
           }
         ];
       };
@@ -67,6 +109,22 @@ export const IDL: NbaGmWithFriendsPrograms = {
       ],
       args: [],
     },
+    {
+      name: "addPlayer",
+      accounts: [
+        {
+          name: "baseAccount",
+          isMut: true,
+          isSigner: false,
+        },
+      ],
+      args: [
+        {
+          name: "name",
+          type: "string",
+        },
+      ],
+    },
   ],
   accounts: [
     {
@@ -77,6 +135,32 @@ export const IDL: NbaGmWithFriendsPrograms = {
           {
             name: "totalPlayers",
             type: "u64",
+          },
+          {
+            name: "playerList",
+            type: {
+              vec: {
+                defined: "ItemStruct",
+              },
+            },
+          },
+        ],
+      },
+    },
+  ],
+  types: [
+    {
+      name: "ItemStruct",
+      type: {
+        kind: "struct",
+        fields: [
+          {
+            name: "name",
+            type: "string",
+          },
+          {
+            name: "userAddress",
+            type: "publicKey",
           },
         ],
       },
