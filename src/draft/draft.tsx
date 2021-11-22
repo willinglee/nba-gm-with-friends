@@ -26,6 +26,10 @@ function draftReducer(state: State, action: Action): State {
   switch (action.draftState) {
     case "start":
       return { ...state, draftState: "start" };
+    case "progress":
+      return { ...state, draftState: "progress" };
+    case "complete":
+      return { ...state, draftState: "complete" };
     default:
       return state;
   }
@@ -39,7 +43,7 @@ function StartDraft({ start }: StartDraftProps) {
     <>
       <Text as="h1">Let's Draft Some Players</Text>
       <Spacer axis="vertical" css={{ minHeight: "24px", height: "24px" }} />
-      <Button>Start Draft</Button>
+      <Button onClick={start}>Start Draft</Button>
     </>
   );
 }
@@ -74,7 +78,10 @@ interface DraftProps {
 export default function Draft({ setPlayers, players }: DraftProps) {
   const [state, dispatch] = useReducer(draftReducer, { draftState: "start" });
 
-  const startDraft = () => dispatch({ draftState: "progress" });
+  const startDraft = () => {
+    dispatch({ draftState: "progress" });
+    console.log("pizza");
+  };
   const finishDraft = () => dispatch({ draftState: "complete" });
 
   return (
