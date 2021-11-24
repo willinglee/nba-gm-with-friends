@@ -1,4 +1,4 @@
-import { useReducer, Dispatch, SetStateAction } from "react";
+import { useReducer, Dispatch, SetStateAction, useState } from "react";
 
 import { styled } from "../stitches.config";
 import Text from "../text/text";
@@ -50,20 +50,28 @@ function StartDraft({ start }: StartDraftProps) {
 
 interface ProgressDraftProps {
   finish: () => void;
+  setDraftedPlayers: Dispatch<SetStateAction<any[]>>;
+  draftedPlayers: any[];
 }
-function ProgressDraft({ finish }: ProgressDraftProps) {
+function ProgressDraft({ finish, draftedPlayers }: ProgressDraftProps) {
+  const [player, setPlayer] = useState();
+
+  const isDone = draftedPlayers.length === 5;
+
   return (
     <>
       <Text as="h1">Pick a player</Text>
+      {isDone && (
+        <>
+          <Spacer axis="vertical" css={{ minHeight: "24px", height: "24px" }} />
+          <Button onClick={finish}>Finish</Button>
+        </>
+      )}
     </>
   );
 }
 
-interface CompleteDraftProps {
-  setPlayers: Dispatch<SetStateAction<never[]>>;
-  players: any[];
-}
-function CompleteDraft({ setPlayers, players }: CompleteDraftProps) {
+function CompleteDraft() {
   return (
     <>
       <Text as="h1">Draft Completed!</Text>
@@ -76,23 +84,23 @@ interface DraftProps {
   players: any[];
 }
 export default function Draft({ setPlayers, players }: DraftProps) {
+  const [draftedPlayers, setDraftedPlayers] = useState(players);
   const [state, dispatch] = useReducer(draftReducer, { draftState: "start" });
 
-  const startDraft = () => {
-    dispatch({ draftState: "progress" });
-    console.log("pizza");
-  };
+  const startDraft = () => dispatch({ draftState: "progress" });
   const finishDraft = () => dispatch({ draftState: "complete" });
 
   return (
     <Wrapper>
       {state.draftState === "start" && <StartDraft start={startDraft} />}
       {state.draftState === "progress" && (
-        <ProgressDraft finish={finishDraft} />
+        <ProgressDraft
+          finish={finishDraft}
+          setDraftedPlayers={setDraftedPlayers}
+          draftedPlayers={draftedPlayers}
+        />
       )}
-      {state.draftState === "complete" && (
-        <CompleteDraft setPlayers={setPlayers} players={players} />
-      )}
+      {state.draftState === "complete" && <CompleteDraft />}
     </Wrapper>
   );
 }
